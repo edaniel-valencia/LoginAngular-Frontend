@@ -1,0 +1,5 @@
+npm install ngx-toastr@16.0.1 --save
+
+
+npm install @angular/animations --save
+
