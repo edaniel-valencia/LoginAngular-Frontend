@@ -5,12 +5,13 @@ import { SigInComponent } from './components/sig-in/sig-in.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MaintenanceComponent } from './components/maintenance/maintenance.component';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
+import { AuthGuard } from './utils/auth.guard';
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'logIn', component: LoginComponent},
   {path: 'signIn', component: SigInComponent},
-  {path: 'dashboard', component: DashboardComponent},
+  {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
   {path: 'maintenance', component: MaintenanceComponent},
   {path: 'errorPage', component: ErrorPageComponent},
   {path: '**', redirectTo:'/errorPage', pathMatch:'full'}

@@ -13,8 +13,8 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class LoginComponent  implements OnInit{
 
-  email: string = '';
-  password: string = '';
+  Uemail: string = '';
+  Upassword: string = '';
   loading: boolean = false;
 
   constructor(
@@ -26,15 +26,15 @@ export class LoginComponent  implements OnInit{
 
   ngOnInit(): void {}
   login(){
-    if (this.email == '' || this.password == '') {
+    if (this.Uemail == '' || this.Upassword == '') {
       this.toastr.error('Todos los campos son obligatorios!', 'Error');
       return
     }
 
     //CREAMOS EL OBJETO
     const user: User = {
-      email: this.email,
-      password: this.password
+      Uemail: this.Uemail,
+      Upassword: this.Upassword
     }
     this.loading =  true
 

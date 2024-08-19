@@ -19,8 +19,8 @@ export class ProductService {
   }
 
   getProducts(): Observable<Product[]>{
-    console.log(`${this.myAppUrl}${this.myAPIUrl}/getProducts`);
-    return this.http.get<Product[]>(`${this.myAppUrl}${this.myAPIUrl}/getProducts`);
+    console.log(`${this.myAppUrl}${this.myAPIUrl}/read`);
+    return this.http.get<Product[]>(`${this.myAppUrl}${this.myAPIUrl}/read`);
     
     //USAR PARA LA PRIMERA PARTE
 
