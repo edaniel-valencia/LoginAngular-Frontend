@@ -1,4 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files
 
 
 html, body {
@@ -21,4 +21,16 @@ html, body {
     max-width: 300px;
     width: 100%;
     text-align: center;
+}
+ */
+
+/* You can add global styles to this file, and also import other style files */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.logo{
+    height: 100px;
+    margin-bottom: 10px;
 }
