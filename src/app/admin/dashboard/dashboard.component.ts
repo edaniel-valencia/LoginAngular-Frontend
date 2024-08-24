@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { initFlowbite } from 'flowbite';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,12 +8,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
+  
+  ngOnInit(): void {
+    initFlowbite();
+  }
+  
   constructor(private router: Router){}
+  
   logOut(){
     localStorage.removeItem('myToken')
-    this.router.navigate(['login'])
+    this.router.navigate(['/login'])
   }
-  goToProduct() {
-    this.router.navigate(['product']);
-  }
+  
 }

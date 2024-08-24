@@ -2,29 +2,22 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { SigInComponent } from './components/sig-in/sig-in.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { MaintenanceComponent } from './components/maintenance/maintenance.component';
-import { ErrorPageComponent } from './components/error-page/error-page.component';
 import { AuthGuard } from './utils/auth.guard';
-import { ProductComponent } from './components/dashboard/product/product.component';
+import { DashboardComponent } from './admin/dashboard/dashboard.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
-  {path: 'logIn', component: LoginComponent},
+  {path: 'login', component: LoginComponent},
   {path: 'signIn', component: SigInComponent},
-  {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
-    children: [
-      { 
-        path: 'product', 
-        component: ProductComponent, 
-        canActivate: [AuthGuard] 
-      }
+  {path: 'dashboard', 
+    canActivate: [AuthGuard],     
+    component: DashboardComponent, 
+    children:[
+      { path: '', loadChildren:() => import('./admin/dashboard.module').then(m => m.DashboardModule)},
+      { path: 'product', loadChildren:() => import('./admin/dashboard.module').then(m => m.DashboardModule) },
+      { path: 'category', loadChildren:() => import('./admin/dashboard.module').then(m => m.DashboardModule) }
     ]
   },
-  // {path: 'product', component: ProductComponent, canActivate: [AuthGuard]},
-  {path: 'maintenance', component: MaintenanceComponent},
-  {path: 'errorPage', component: ErrorPageComponent},
-  {path: '**', redirectTo:'/errorPage', pathMatch:'full'}
 ];
 
 @NgModule({

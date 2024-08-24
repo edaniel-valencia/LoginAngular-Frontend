@@ -44,7 +44,7 @@ export class LoginComponent  implements OnInit{
         const token = response.token
       //  console.log(token);     
         this.toastr.success("", "Bienvenido")
-        this.router.navigate(['/dashboard']) 
+        this.router.navigate(['/dashboard/product/products']) 
         localStorage.setItem('myToken',token) 
       },
       error: (e: HttpErrorResponse) => {

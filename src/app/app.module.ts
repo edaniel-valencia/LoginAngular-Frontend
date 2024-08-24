@@ -27,11 +27,11 @@ import { AddTokenInterceptor } from './utils/add-token.interceptor';
     LoginComponent,
     DashboardComponent,
     SigInComponent,
-    NavbarComponent,
     SpinnerComponent,
     MaintenanceComponent,
     ProductComponent,
-    ErrorPageComponent
+    ErrorPageComponent    
+    
   ],
   imports: [
     BrowserModule,
