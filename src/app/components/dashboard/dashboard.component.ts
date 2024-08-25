@@ -7,12 +7,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
+
   constructor(private router: Router){}
+
   logOut(){
     localStorage.removeItem('myToken')
     this.router.navigate(['login'])
   }
+
   goToProduct() {
     this.router.navigate(['product']);
   }
+  
 }

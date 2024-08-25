@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { initFlowbite } from 'flowbite';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AddTokenInterceptor } from '../utils/add-token.interceptor';
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -28,6 +29,11 @@ import { AddTokenInterceptor } from '../utils/add-token.interceptor';
     CommonModule,
     RouterModule,
     DashboardRoutingModule,
+    ToastrModule.forRoot({
+      timeOut: 10000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    }),
     
   ],
   providers: [
