@@ -31,7 +31,6 @@ import { AddTokenInterceptor } from './utils/add-token.interceptor';
     MaintenanceComponent,
     ProductComponent,
     ErrorPageComponent    
-    
   ],
   imports: [
     BrowserModule,

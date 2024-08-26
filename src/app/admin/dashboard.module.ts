@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductComponent } from './product/product.component';
 import { CategoryComponent } from './category/category.component';
 import { UserComponent } from './user/user.component';
 import { RoleComponent } from './role/role.component';
@@ -12,7 +11,8 @@ import { initFlowbite } from 'flowbite';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AddTokenInterceptor } from '../utils/add-token.interceptor';
 import { ToastrModule } from 'ngx-toastr';
-
+import { FormsModule } from '@angular/forms';
+import { ProductComponent } from './product/product.component';
 
 
 @NgModule({
@@ -22,10 +22,11 @@ import { ToastrModule } from 'ngx-toastr';
     UserComponent,
     RoleComponent,
     DashboardComponent,
-    HomeComponent
+    HomeComponent,
     
   ],
   imports: [
+    FormsModule,
     CommonModule,
     RouterModule,
     DashboardRoutingModule,

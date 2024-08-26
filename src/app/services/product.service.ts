@@ -15,13 +15,13 @@ export class ProductService {
   constructor(private http: HttpClient) {
     this.myAppUrl = environments.endpoint
     this.myAPIUrl = 'api/product';
-    
+
   }
 
-  getProducts(): Observable<Product[]>{
+  getProducts(): Observable<Product[]> {
     console.log(`${this.myAppUrl}${this.myAPIUrl}/read`);
     return this.http.get<Product[]>(`${this.myAppUrl}${this.myAPIUrl}/read`);
-    
+
     //USAR PARA LA PRIMERA PARTE
 
     // const token = localStorage.getItem('token')
@@ -30,8 +30,17 @@ export class ProductService {
 
     // NETWORK - fetch/xhr - getProduc
 
-    
+
   }
- 
+
+
+  register(product: Product): Observable<any> {
+    return this.http.post(`${this.myAppUrl}${this.myAPIUrl}/create`, product);
+  }
+
+  update(product: Product): Observable<any> {
+    return this.http.patch(`${this.myAppUrl}${this.myAPIUrl}/update/${product.Pid}`, product);
+  }
+
   
 }
