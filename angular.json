@@ -26,10 +26,8 @@
             ],
             "styles": [
               "src/styles.css",
-              "node_modules/ngx-toastr/toastr.css"
-            ],
+              "node_modules/ngx-toastr/toastr.css"            ],
             "scripts": [
-              "node_modules/flowbite/dist/flowbite.min.js"
             ]
           },
           "configurations": {
@@ -96,10 +94,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
-            ],
+              "src/styles.css"            ],
             "scripts": [
-              "node_modules/flowbite/dist/flowbite.min.js"
 
             ]
           }

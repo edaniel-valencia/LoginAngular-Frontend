@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Data, Router } from '@angular/router';
+import { initFlowbite } from 'flowbite';
 import { ToastrService } from 'ngx-toastr';
 import { Product } from 'src/app/interfaces/product';
 import { ErrorService } from 'src/app/services/error.service';
@@ -14,15 +15,11 @@ import { ProductService } from 'src/app/services/product.service';
 export class ProductComponent implements OnInit {
 
   listProduct: Product[] = []
-  Pid?: number ;
+  Pid: number = 0;
   Pname: string = '';
   Pdescription: string = '';
   CategoryId: number = 0;
-  
-  PUid?: number ;
-  PUname: string = '';
-  PUdescription: string = '';
-  UCategoryId: number = 0;
+
 
   loading: boolean = false;
 
@@ -37,9 +34,9 @@ export class ProductComponent implements OnInit {
     this.getProducts()
 
   }
+
   getProducts() {
     this._productService.getProducts().subscribe(data => {
-      console.log(data);
       this.listProduct = data
     })
   }
@@ -56,14 +53,15 @@ export class ProductComponent implements OnInit {
       Pdescription: this.Pdescription,
       CategoryId: this.CategoryId
     }
+
     this.loading = true
 
     this._productService.register(product).subscribe({
       next: (v) => {
         this.loading = false
         this.toastr.success(`Producto ${this.Pname} fue registrado exitosamente", "Usuario Registrado`)
-        this.router.navigate(['/dashboard/product/products'])
-        this.getProducts()
+        this.router.navigate(['/dashboard/product/listProduct'])
+
       },
       error: (e: HttpErrorResponse) => {
         this.loading = false
@@ -74,28 +72,13 @@ export class ProductComponent implements OnInit {
   }
 
 
-  openModal(modalId: string, productId?: number) {
-    if (productId !== undefined) {
-      const modalElement = document.getElementById(`${modalId}-${productId}`);
-      if (modalElement) {
-        modalElement.classList.add('show');
-        modalElement.style.display = 'block';
-      }
-    } else {
-      console.error('Product ID is undefined');
-    }
-  }
-  
-  updateProduct(productId: number) {
-    console.log(this.PUname);
-    
+  updateProduct(productId: number,) {
 
-    if ( this.Pname == '' ) {
+    if (this.Pname == '') {
       this.toastr.error('Llena el nombre ', 'Error');
       return
     }
 
-    
     const product: Product = {
       Pid: productId,
       Pname: this.Pname,
@@ -103,7 +86,6 @@ export class ProductComponent implements OnInit {
       CategoryId: this.CategoryId
     }
 
-   
     this.loading = true
 
     this._productService.update(product).subscribe({
@@ -111,13 +93,44 @@ export class ProductComponent implements OnInit {
         this.loading = false
         this.toastr.success(`Producto ${this.Pname} fue registrado actualizado", "Usuario Registrado`)
         this.router.navigate(['/dashboard/product/products'])
+
       },
       error: (e: HttpErrorResponse) => {
         this.loading = false
         this._errorService.msgError(e)
       },
-      complete: () => console.info('complete')
+      complete: () => {
+        this.getProducts(),
+          console.info('complete')
+      }
     })
+  }
 
+  deleteProduct(productId: number) {
+    console.log("Estoy aca" + productId);
+
+    const product: Product = {
+      Pid: productId
+    }
+
+    this.loading = true
+
+    this._productService.delete(product).subscribe({
+      next: (v) => {
+        this.loading = false
+        this.toastr.success(`Producto ${this.Pname} fue eliminado exitosamente", "Usuario Eliminado`)
+        this.router.navigate(['/dashboard/product/listProduct'])
+        this.getProducts()
+
+      },
+      error: (e: HttpErrorResponse) => {
+        this.loading = false
+        this._errorService.msgError(e)
+      },
+      complete: () => {
+        this.loading = false
+        console.info('complete')
+      }
+    })
   }
 }

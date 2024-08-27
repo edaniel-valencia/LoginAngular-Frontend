@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { initFlowbite } from 'flowbite';
 
@@ -8,10 +8,6 @@ import { initFlowbite } from 'flowbite';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
-  
-  ngOnInit(): void {
-    initFlowbite();
-  }
   
   constructor(private router: Router){}
   
