@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { Data, Router } from '@angular/router';
+import { AfterContentInit, AfterViewChecked, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { initFlowbite } from 'flowbite';
 import { ToastrService } from 'ngx-toastr';
 import { Product } from 'src/app/interfaces/product';
@@ -12,7 +12,8 @@ import { ProductService } from 'src/app/services/product.service';
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css']
 })
-export class ProductComponent implements OnInit {
+export class ProductComponent implements OnInit, AfterContentInit {
+
 
   listProduct: Product[] = []
   Pid: number = 0;
@@ -30,10 +31,17 @@ export class ProductComponent implements OnInit {
     private _errorService: ErrorService
   ) { }
 
+  
   ngOnInit(): void {
+    this.getProducts()
+    
+  }
+
+  ngAfterContentInit(): void {
     this.getProducts()
 
   }
+
 
   getProducts() {
     this._productService.getProducts().subscribe(data => {

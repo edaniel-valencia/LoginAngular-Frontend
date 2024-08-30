@@ -6,14 +6,14 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { SigInComponent } from './components/sig-in/sig-in.component';
+import { SigInComponent } from './sig-in/sig-in.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { MaintenanceComponent } from './components/maintenance/maintenance.component';
 import { ProductComponent } from './components/dashboard/product/product.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
 
 // TOAST CON ANIMACIONES
@@ -37,6 +37,7 @@ import { AddTokenInterceptor } from './utils/add-token.interceptor';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     CommonModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot({
