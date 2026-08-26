@@ -9,9 +9,12 @@
 
   <br/>
 
+  <div align="center">
   <a href="https://github.com/edaniel-valencia/login-backend-with-angular">
-    <img src="https://img.shields.io/badge/⬇️%20Descargar%20Backend-181717?style=for-the-badge&logo=github&logoColor=white" alt="Descargar Backend" />
+    <img src="https://img.shields.io/badge/⬇️%20%20Descargar%20Backend-6366f1?style=for-the-badge&logo=github&logoColor=white" alt="Descargar Backend" />
   </a>
+</div>
+
 </div>
 
 ---
@@ -183,16 +186,6 @@ Antes de levantar la aplicación por primera vez:
 2. **Variables de entorno**: asegúrate de tener el archivo `.env` creado (paso anterior).
 3. **Dependencias instaladas**: `pnpm install` debe haberse ejecutado sin errores.
 4. **Backend disponible**: la app espera una API en el `API_ENDPOINT` configurado (por defecto `http://localhost:3001/`). Sin el backend corriendo, el login y las peticiones fallarán.
-
----
-
-## ⚙️ Backend
-
-<div align="center">
-  <a href="https://github.com/edaniel-valencia/login-backend-with-angular">
-    <img src="https://img.shields.io/badge/⬇️%20%20Descargar%20Backend-6366f1?style=for-the-badge&logo=github&logoColor=white" alt="Descargar Backend" />
-  </a>
-</div>
 
 ---
 
