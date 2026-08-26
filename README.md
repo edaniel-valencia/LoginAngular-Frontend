@@ -6,6 +6,12 @@
   Aplicación frontend de autenticación y panel administrativo construida con **Angular 22**.
 
   <img src="src/assets/page.png" alt="Vista previa de la aplicación" width="100%" />
+
+  <br/>
+
+  <a href="https://github.com/edaniel-valencia/login-backend-with-angular">
+    <img src="https://img.shields.io/badge/⬇️%20Descargar%20Backend-181717?style=for-the-badge&logo=github&logoColor=white" alt="Descargar Backend" />
+  </a>
 </div>
 
 ---
