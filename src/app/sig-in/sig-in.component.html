@@ -1,37 +1,166 @@
-<div class="wrapper">
-    <div *ngIf="!loading" class="body">
-        <img class="logo" src="../../../assets/logo.png" alt="" />
-        <h1 class="mb-4 mt-3">Iniciar Sessión</h1>
-        <div class="row g-1">
-            <div class="form-floating col mb-2">
-                <input type="text" [(ngModel)]="Uname" class="form-control" id="floatingName" placeholder="name@example.com" />
-                <label for="floatingName">Nombres</label>
-            </div>
-            <div class="form-floating col mb-2">
-                <input type="text" [(ngModel)]="Ulastname" class="form-control" id="floatingLastname" placeholder="name@example.com" />
-                <label for="floatingLastname">Apellidos</label>
-            </div>
-            <div class="form-floating mb-2">
-                <input type="number" [(ngModel)]="Ucredential" class="form-control" id="floatingCredential" placeholder="name@example.com" />
-                <label for="floatingCredential">credential</label>
-            </div>
-            <div class="form-floating mb-2">
-                <input type="email" [(ngModel)]="Uemail" class="form-control" id="floatingEmail" placeholder="name@example.com" />
-                <label for="floatingEmail">Email address</label>
-            </div>
-            <div class="form-floating col mb-2">
-                <input type="password" required [(ngModel)]="Upassword" class="form-control" id="floatingPassword" placeholder="Password" />
-                <label for="floatingPassword">Password</label>
-            </div>
-            <div class="form-floating col mb-2">
-                <input type="password" [(ngModel)]="repeatUPassword" class="form-control" id="floatingRepeatPassword" placeholder="Password" />
-                <label for="floatingRepeatPassword">Repetir Password</label>
-            </div>
-            <div class="d-grid gap-3">
-                <button class="btn btn-primary" (click)="addUser()" type="button">Aceptar</button>
-            </div>
-        </div>
-        <p class="mt-3">¿Ya tengo cuenta? <a routerLink="/logIn">Iniciar Sesión</a></p>
+<section class="min-h-screen flex bg-gray-50 dark:bg-gray-900">
+
+  <!-- Panel de marca (oculto en mobile) -->
+  <div class="hidden lg:flex lg:w-1/2 relative flex-col justify-between p-12 bg-gradient-to-br from-primary-700 via-primary-600 to-primary-800 text-white overflow-hidden">
+    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_20%_20%,white,transparent_35%),radial-gradient(circle_at_80%_70%,white,transparent_30%)]"></div>
+
+    <a routerLink="/login" class="relative z-10 flex items-center gap-3">
+      <img class="h-10 w-auto brightness-0 invert" src="../../../assets/logo.png" alt="logo">
+    </a>
+
+    <div class="relative z-10 max-w-md">
+      <h2 class="text-3xl font-bold leading-tight mb-4">Únete a nosotros</h2>
+      <p class="text-primary-100 text-lg">Crea tu cuenta para empezar a administrar productos, categorías y usuarios.</p>
     </div>
-    <app-spinner *ngIf="loading"></app-spinner>
-</div>
+
+    <p class="relative z-10 text-sm text-primary-200">© {{ currentYear }} Todos los derechos reservados.</p>
+  </div>
+
+  <!-- Panel de formulario -->
+  <div class="relative flex flex-1 flex-col items-center justify-center px-6 py-12">
+
+    <div *ngIf="loading" class="absolute inset-0 flex items-center justify-center bg-white/70 dark:bg-gray-900/70 z-20">
+      <app-spinner></app-spinner>
+    </div>
+
+    <div class="w-full max-w-md">
+
+      <a routerLink="/login" class="flex lg:hidden items-center justify-center mb-8">
+        <img class="h-12 w-auto" src="../../../assets/logo.png" alt="logo">
+      </a>
+
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-1">
+        Crear cuenta
+      </h1>
+      <p class="text-sm text-gray-500 dark:text-gray-400 mb-8">
+        Completa tus datos para registrarte
+      </p>
+
+      <form class="space-y-5" (ngSubmit)="addUser()" #sigInForm="ngForm">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombres</label>
+            <input
+              [(ngModel)]="Uname"
+              [disabled]="loading"
+              type="text"
+              name="name"
+              id="name"
+              autocomplete="given-name"
+              placeholder="Juan"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 disabled:opacity-60 disabled:cursor-not-allowed"
+              required>
+          </div>
+          <div>
+            <label for="lastname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellidos</label>
+            <input
+              [(ngModel)]="Ulastname"
+              [disabled]="loading"
+              type="text"
+              name="lastname"
+              id="lastname"
+              autocomplete="family-name"
+              placeholder="Pérez"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 disabled:opacity-60 disabled:cursor-not-allowed"
+              required>
+          </div>
+        </div>
+
+        <div>
+          <label for="credential" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Documento de identidad</label>
+          <input
+            [(ngModel)]="Ucredential"
+            [disabled]="loading"
+            type="number"
+            name="credential"
+            id="credential"
+            placeholder="1000000000"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 disabled:opacity-60 disabled:cursor-not-allowed"
+            required>
+        </div>
+
+        <div>
+          <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Correo electrónico</label>
+          <div class="relative">
+            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-gray-400">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0-.414.336-.75.75-.75h18c.414 0 .75.336.75.75v10.5a.75.75 0 01-.75.75h-18a.75.75 0 01-.75-.75V6.75z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.75 7.5l9.25 6.5 9.25-6.5" />
+              </svg>
+            </div>
+            <input
+              [(ngModel)]="Uemail"
+              [disabled]="loading"
+              type="email"
+              name="email"
+              id="email"
+              autocomplete="email"
+              placeholder="nombre@empresa.com"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full pl-10 p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 disabled:opacity-60 disabled:cursor-not-allowed"
+              required>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
+            <div class="relative">
+              <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-gray-400">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                </svg>
+              </div>
+              <input
+                [(ngModel)]="Upassword"
+                [disabled]="loading"
+                [type]="showPassword ? 'text' : 'password'"
+                name="password"
+                id="password"
+                autocomplete="new-password"
+                placeholder="••••••••"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full pl-10 p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 disabled:opacity-60 disabled:cursor-not-allowed"
+                required>
+            </div>
+          </div>
+          <div>
+            <label for="repeatPassword" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Repetir contraseña</label>
+            <div class="relative">
+              <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-gray-400">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                </svg>
+              </div>
+              <input
+                [(ngModel)]="repeatUPassword"
+                [disabled]="loading"
+                [type]="showPassword ? 'text' : 'password'"
+                name="repeatPassword"
+                id="repeatPassword"
+                autocomplete="new-password"
+                placeholder="••••••••"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full pl-10 p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 disabled:opacity-60 disabled:cursor-not-allowed"
+                required>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center">
+          <input id="showPassword" type="checkbox" [(ngModel)]="showPassword" [ngModelOptions]="{standalone: true}" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-2 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800">
+          <label for="showPassword" class="ml-2 text-sm text-gray-500 dark:text-gray-300">Mostrar contraseñas</label>
+        </div>
+
+        <button
+          type="submit"
+          [disabled]="loading"
+          class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors disabled:opacity-70 disabled:cursor-not-allowed dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+          Crear cuenta
+        </button>
+
+        <p class="text-sm font-light text-gray-500 dark:text-gray-400 text-center">
+          ¿Ya tienes una cuenta? <a routerLink="/login" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Iniciar sesión</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</section>

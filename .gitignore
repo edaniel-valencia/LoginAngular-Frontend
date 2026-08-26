@@ -10,6 +10,8 @@
 /node_modules
 npm-debug.log
 yarn-error.log
+package-lock.json
+yarn.lock
 
 # IDEs and editors
 .idea/
@@ -28,8 +30,16 @@ yarn-error.log
 !.vscode/extensions.json
 .history/*
 
-# Miscellaneous
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Angular cache & build artifacts
 /.angular/cache
+.angular/
+
+# Miscellaneous
 .sass-cache/
 /connect.lock
 /coverage
@@ -40,3 +50,10 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Testing
+/e2e/screenshots

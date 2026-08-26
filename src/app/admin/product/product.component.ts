@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { AfterContentInit, AfterViewChecked, Component, OnInit } from '@angular/core';
+import { AfterContentInit, AfterViewChecked, Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { initFlowbite } from 'flowbite';
 import { ToastrService } from 'ngx-toastr';
@@ -8,9 +8,11 @@ import { ErrorService } from 'src/app/services/error.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
-  selector: 'app-product',
-  templateUrl: './product.component.html',
-  styleUrls: ['./product.component.css']
+    selector: 'app-product',
+    templateUrl: './product.component.html',
+    styleUrls: ['./product.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ProductComponent implements OnInit, AfterContentInit {
 

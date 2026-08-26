@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Route, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/interfaces/user';
@@ -7,9 +7,11 @@ import { ErrorService } from 'src/app/services/error.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-sig-in',
-  templateUrl: './sig-in.component.html',
-  styleUrls: ['./sig-in.component.css']
+    selector: 'app-sig-in',
+    templateUrl: './sig-in.component.html',
+    styleUrls: ['./sig-in.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class SigInComponent implements OnInit {
 
@@ -20,6 +22,8 @@ export class SigInComponent implements OnInit {
   Ucredential: string = '';
   repeatUPassword: string = '';
   loading: boolean = false;
+  showPassword: boolean = false;
+  currentYear: number = new Date().getFullYear();
   constructor(
     private toastr: ToastrService,
     private _userService: UserService,
@@ -63,8 +67,8 @@ export class SigInComponent implements OnInit {
     this._userService.signIn(user).subscribe({
       next: (v) => {
         this.loading = false
-        this.toastr.success(`El usuario ${this.Uname} ${this.Ulastname} fue registrado exitosamente", "Usuario Registrado`)
-        this.router.navigate(['/logIn'])
+        this.toastr.success(`El usuario ${this.Uname} ${this.Ulastname} fue registrado exitosamente`, 'Usuario Registrado')
+        this.router.navigate(['/login'])
       },
       error: (e: HttpErrorResponse) => {
         this.loading = false
