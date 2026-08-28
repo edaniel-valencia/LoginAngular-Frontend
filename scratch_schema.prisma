@@ -1,0 +1,930 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model EdxAuditLog {
+  edxAuditId         String      @id @default(dbgenerated("gen_random_uuid()")) @map("edx_audit_id") @db.Uuid
+  edxAuditUserId     String?     @map("edx_user_id") @db.Uuid
+  edxAuditUserName   String?     @map("edx_audit_user") @db.VarChar(100)
+  edxAuditModule     String      @map("edx_audit_module") @db.VarChar(50)
+  edxAuditPayload    Json?       @map("edx_audit_payload")
+  edxAuditIp         String?     @map("edx_audit_ip") @db.VarChar(45)
+  edxAuditMethod     String?     @map("edx_audit_method") @db.VarChar(10)
+  edxAuditUrl        String?     @map("edx_audit_url")
+  edxAuditStatusCode Int?        @map("edx_audit_status_code")
+  edxAuditCreatedAt  DateTime?   @default(now()) @map("edx_audit_created_at") @db.Timestamp(6)
+
+  @@map("edx_audit_logs")
+}
+
+model EdxBanner {
+  edxBanId          String      @id @default(dbgenerated("gen_random_uuid()")) @map("edx_ban_id") @db.Uuid
+  edxBanTitle       String?     @map("edx_ban_title") @db.VarChar(200)
+  edxBanDescription String?     @map("edx_ban_description")
+  edxBanImage       String?     @map("edx_ban_image")
+  edxBanFilm        String?     @map("edx_ban_film")
+  edxBanIframe      String?     @map("edx_ban_iframe")
+  edxBanStatus      Int?        @default(1) @map("edx_ban_status")
+  edxBanCreatedAt   DateTime?   @default(now()) @map("edx_ban_created_at") @db.Timestamp(6)
+  edxBanUpdatedAt   DateTime?   @default(now()) @map("edx_ban_updated_at") @db.Timestamp(6)
+  edxBanDuration    Int?        @default(0) @map("edx_ban_duration")
+
+  @@map("edx_banners")
+}
+
+model EdxPopup {
+  edxPopId          String      @id @default(dbgenerated("gen_random_uuid()")) @map("edx_pop_id") @db.Uuid
+  edxPopTitle       String?     @map("edx_pop_title") @db.VarChar(200)
+  edxPopDescription String?     @map("edx_pop_description")
+  edxPopImage       String?     @map("edx_pop_image")
+  edxPopFilm        String?     @map("edx_pop_film")
+  edxPopIframe      String?     @map("edx_pop_iframe")
+  edxPopUrl         String?     @map("edx_pop_url")
+  edxPopStatus      Int?        @default(1) @map("edx_pop_status")
+  edxPopCreatedAt   DateTime?   @default(now()) @map("edx_pop_created_at") @db.Timestamp(6)
+  edxPopUpdatedAt   DateTime?   @default(now()) @map("edx_pop_updated_at") @db.Timestamp(6)
+  edxPopDuration    Int?        @default(0) @map("edx_pop_duration")
+  edxPopKey         String?     @map("edx_pop_key") @db.VarChar(50)
+  edxPopTargetPage  String?     @default("dashboard") @map("edx_pop_target_page") @db.VarChar(50)
+
+  @@map("edx_popups")
+}
+
+
+
+model EdxUser {
+  edxUserId         String    @id @default(dbgenerated("gen_random_uuid()")) @map("edx_user_id") @db.Uuid
+  edxUserEmail      String    @unique @map("edx_user_email") @db.VarChar(150)
+  edxUserPassword   String    @map("edx_user_password")
+  edxUserFirstname  String?   @map("edx_user_firstname") @db.VarChar(200)
+  edxUserLastname   String?   @map("edx_user_lastname") @db.VarChar(150)
+  edxUserUsername   String?   @map("edx_user_username") @db.VarChar(50)
+  edxUserStatus     Int?      @default(1) @map("edx_user_status")
+  edxUserPhone      String?   @map("edx_user_phone") @db.VarChar(15)
+  edxUserCredential String?   @map("edx_user_credential") @db.VarChar(15)
+  edxUserCreatedAt  DateTime? @default(now()) @map("edx_user_created_at") @db.Timestamp(6)
+  edxUserUpdatedAt  DateTime? @default(now()) @map("edx_user_updated_at") @db.Timestamp(6)
+  edxUserDeletedAt  DateTime? @default(now()) @map("edx_user_deleted_at") @db.Timestamp(6)
+  edxUserAvatar     String?   @map("edx_user_avatar")
+  edxUserBirthdate  DateTime? @map("edx_user_birthdate") @db.Date
+
+  // Professional attributes requested by user
+  edxUserProvince         String?  @map("edx_user_province") @db.VarChar(100)
+  edxUserCity             String?  @map("edx_user_city") @db.VarChar(100)
+  edxUserZone             String?  @map("edx_user_zone") @db.VarChar(100)
+  edxUserParish           String?  @map("edx_user_parish") @db.VarChar(100)
+  edxUserAddress          String?  @map("edx_user_address") @db.VarChar(255)
+  edxUserLatitude         String?  @map("edx_user_latitude") @db.VarChar(50)
+  edxUserLongitude        String?  @map("edx_user_longitude") @db.VarChar(50)
+  edxUserAbout            String?  @map("edx_user_about")
+  edxUserRating           Float?   @default(0) @map("edx_user_rating")
+  edxUserReviewCount      Int?     @default(0) @map("edx_user_review_count")
+  edxUserCompletedJobs    Int?     @default(0) @map("edx_user_completed_jobs")
+  edxUserViews            Int?     @default(0) @map("edx_user_views")
+  edxUserRole             String?  @default("client") @map("edx_user_role") @db.VarChar(30)
+  edxUserTipoTrabajo      String?  @map("edx_user_tipo_trabajo") @db.VarChar(100)
+  edxUserSenescytTitle    String?  @map("edx_user_senescyt_title") @db.VarChar(255)
+  edxUserSenescytCode     String?  @map("edx_user_senescyt_code") @db.VarChar(100)
+  edxUserArtisanQualification Boolean? @map("edx_user_artisan_qualification")
+  edxUserWorkshopName     String?  @map("edx_user_workshop_name") @db.VarChar(255)
+  edxUserYearsExperience  Int?     @map("edx_user_years_experience")
+  edxUserHasOwnTools      Boolean? @map("edx_user_has_own_tools")
+  edxUserProfileComplete  Boolean? @default(false) @map("edx_user_profile_complete")
+  edxUserProfessions      String[] @default([]) @map("edx_user_professions")
+  edxUserActivities       Json?    @map("edx_user_activities")
+  edxUserCustomProfession String?  @map("edx_user_custom_profession") @db.VarChar(200)
+  edxUserAppliances       String[] @default([]) @map("edx_user_appliances")
+  edxUserAdditionalPhone  String?  @map("edx_user_additional_phone") @db.VarChar(15)
+  edxUserWebsite          String?  @map("edx_user_website") @db.VarChar(255)
+  edxUserIsAvailable      Boolean? @default(true) @map("edx_user_is_available")
+  edxUserCoverUrl         String?  @map("edx_user_cover_url")
+  edxUserTrabajadorPagado Boolean? @default(false) @map("edx_user_trabajador_pagado")
+
+  // Verification fields
+  edxUserVerificationCompleted Boolean? @default(false) @map("edx_user_verification_completed")
+  edxUserVerificationStatus    String?  @default("unverified") @map("edx_user_verification_status") @db.VarChar(30)
+  edxUserVerificationAddress   String?  @map("edx_user_verification_address") @db.VarChar(255)
+  edxUserCedulaNumber          String?  @map("edx_user_cedula_number") @db.VarChar(20)
+  edxUserCedulaPath            String?  @map("edx_user_cedula_path")
+  edxUserRucPath               String?  @map("edx_user_ruc_path")
+  edxUserTituloPath            String?  @map("edx_user_titulo_path")
+  edxUserGremioPath            String?  @map("edx_user_gremio_path")
+  edxUserFrontalPath           String?  @map("edx_user_frontal_path")
+  edxUserVideoPath             String?  @map("edx_user_video_path")
+  edxUserVerificationSubmittedAt DateTime? @map("edx_user_verification_submitted_at") @db.Timestamp(6)
+
+  devices            EdxDevice[]
+  notifications      EdxNotification[]
+  specialPermissions EdxRelationPermissionsUsers[]
+  roles              EdxRelationRolesUsers[]
+  sercopKeywords     EdxSercopKeyword[]
+  subscription       EdxSubscription?
+  payments           EdxPayment[]
+  worker             EdxWorker?
+  supportMessages    EdxSupportMessage[]
+  supportTickets     EdxSupportTicket[]
+
+  // Platform Relations
+  posts           EdxPost[]
+  reviewsReceived EdxReview[]       @relation("WorkerReviews")
+  reviewsGiven    EdxReview[]       @relation("ClientReviews")
+  postLikes       EdxPostLike[]
+  postComments    EdxPostComment[]
+  jobsAsWorker    EdxCompletedJob[] @relation("WorkerJobs")
+  jobsAsClient    EdxCompletedJob[] @relation("ClientJobs")
+
+  @@map("edx_users")
+}
+
+model EdxPost {
+  edxPostId            String           @id @default(dbgenerated("gen_random_uuid()")) @map("edx_post_id") @db.Uuid
+  edxUserId            String           @map("edx_user_id") @db.Uuid
+  edxPostText          String?          @map("edx_post_text")
+  edxPostImageUrl      String?          @map("edx_post_image_url")
+  edxPostLikesCount    Int              @default(0) @map("edx_post_likes_count")
+  edxPostCommentsCount Int              @default(0) @map("edx_post_comments_count")
+  edxPostCreatedAt     DateTime         @default(now()) @map("edx_post_created_at") @db.Timestamp(6)
+  user                 EdxUser          @relation(fields: [edxUserId], references: [edxUserId], onDelete: Cascade)
+  likes                EdxPostLike[]
+  comments             EdxPostComment[]
+
+  @@map("edx_posts")
+}
+
+model EdxReview {
+  edxReviewId        String   @id @default(dbgenerated("gen_random_uuid()")) @map("edx_review_id") @db.Uuid
+  edxWorkerId        String   @map("edx_worker_id") @db.Uuid
+  edxClientId        String   @map("edx_client_id") @db.Uuid
+  edxReviewRating    Float    @map("edx_review_rating")
+  edxReviewComment   String?  @map("edx_review_comment")
+  edxReviewCreatedAt DateTime @default(now()) @map("edx_review_created_at") @db.Timestamp(6)
+  worker             EdxUser  @relation("WorkerReviews", fields: [edxWorkerId], references: [edxUserId], onDelete: Cascade)
+  client             EdxUser  @relation("ClientReviews", fields: [edxClientId], references: [edxUserId], onDelete: Cascade)
+
+  @@map("edx_reviews")
+}
+
+model EdxPostLike {
+  edxLikeId String  @id @default(dbgenerated("gen_random_uuid()")) @map("edx_like_id") @db.Uuid
+  edxPostId String  @map("edx_post_id") @db.Uuid
+  edxUserId String  @map("edx_user_id") @db.Uuid
+  post      EdxPost @relation(fields: [edxPostId], references: [edxPostId], onDelete: Cascade)
+  user      EdxUser @relation(fields: [edxUserId], references: [edxUserId], onDelete: Cascade)
+
+  @@unique([edxPostId, edxUserId])
+  @@map("edx_post_likes")
+}
+
+model EdxPostComment {
+  edxCommentId        String   @id @default(dbgenerated("gen_random_uuid()")) @map("edx_comment_id") @db.Uuid
+  edxPostId           String   @map("edx_post_id") @db.Uuid
+  edxUserId           String   @map("edx_user_id") @db.Uuid
+  edxCommentText      String   @map("edx_comment_text")
+  edxCommentCreatedAt DateTime @default(now()) @map("edx_comment_created_at") @db.Timestamp(6)
+  post                EdxPost  @relation(fields: [edxPostId], references: [edxPostId], onDelete: Cascade)
+  user                EdxUser  @relation(fields: [edxUserId], references: [edxUserId], onDelete: Cascade)
+
+  @@map("edx_post_comments")
+}
+
+model EdxCompletedJob {
+  edxJobId        String   @id @default(dbgenerated("gen_random_uuid()")) @map("edx_job_id") @db.Uuid
+  edxWorkerId     String   @map("edx_worker_id") @db.Uuid
+  edxClientId     String   @map("edx_client_id") @db.Uuid
+  edxJobCreatedAt DateTime @default(now()) @map("edx_job_created_at") @db.Timestamp(6)
+  worker          EdxUser  @relation("WorkerJobs", fields: [edxWorkerId], references: [edxUserId], onDelete: Cascade)
+  client          EdxUser  @relation("ClientJobs", fields: [edxClientId], references: [edxUserId], onDelete: Cascade)
+
+  @@map("edx_completed_jobs")
+}
+
+model EdxDevice {
+  edxDeviceId   String    @id @default(dbgenerated("gen_random_uuid()")) @map("edx_device_id") @db.Uuid
+  edxUserId     String?   @map("edx_user_id") @db.Uuid
+  edxDevName    String?   @map("edx_name") @db.VarChar(100)
+  edxDevOs      String?   @map("edx_so") @db.VarChar(50)
+  edxDevLat     Float?    @map("edx_lat")
+  edxDevLng     Float?    @map("edx_log")
+  edxDevAddress String?   @map("edx_address") @db.VarChar(255)
+  edxDevBrowser String?   @map("edx_browser") @db.VarChar(100)
+  edxDevStatus  Int?      @default(1) @map("edx_device_status")
+  edxLastUsed   DateTime? @default(now()) @map("edx_device_last_used") @db.Timestamp(6)
+  edxDevIp      String?   @map("edx_device_ip") @db.VarChar(45)
+  edxDevType    String?   @map("edx_device_type") @db.VarChar(20)
+  user          EdxUser?  @relation(fields: [edxUserId], references: [edxUserId], onDelete: Cascade)
+
+  @@map("edx_devices")
+}
+
+model EdxRole {
+  edxRoleId        String                      @id @default(dbgenerated("gen_random_uuid()")) @map("edx_role_id") @db.Uuid
+  edxRoleName      String                      @map("edx_role_name") @db.VarChar(100)
+  edxRoleKey       String?                     @map("edx_role_key") @db.VarChar(30)
+  edxRoleStatus    Int?                        @default(1) @map("edx_role_status")
+  edxRoleCreatedAt DateTime?                   @default(now()) @map("edx_role_created_at") @db.Timestamp(6)
+  edxRoleUpdatedAt DateTime?                   @default(now()) @map("edx_role_updated_at") @db.Timestamp(6)
+  modules          EdxRelationRoleModule[]
+  permissions      EdxRelationRolePermission[]
+  sidebars         EdxRelationRolesSidebars[]
+  users            EdxRelationRolesUsers[]
+
+  @@map("edx_roles")
+}
+
+model EdxRelationRolesUsers {
+  edxUserId String  @map("edx_user_id") @db.Uuid
+  edxRoleId String  @map("edx_role_id") @db.Uuid
+  edxStatus Int?    @default(1) @map("edx_rru_status")
+  role      EdxRole @relation(fields: [edxRoleId], references: [edxRoleId], onDelete: Cascade)
+  user      EdxUser @relation(fields: [edxUserId], references: [edxUserId], onDelete: Cascade)
+
+  @@id([edxUserId, edxRoleId])
+  @@map("edx_relation_roles_users")
+}
+
+model EdxSidebar {
+  edxSidebarId       String                     @id @default(dbgenerated("gen_random_uuid()")) @map("edx_sidebar_id") @db.Uuid
+  edxSidebarParentId String?                    @map("edx_sidebar_parent_id") @db.Uuid
+  edxSidebarTitle    String                     @map("edx_sidebar_title") @db.VarChar(100)
+  edxSidebarPath     String?                    @map("edx_sidebar_path") @db.VarChar(255)
+  edxSidebarIcon     String?                    @map("edx_sidebar_icon") @db.VarChar(50)
+  edxSidebarOrder    Int                        @default(0) @map("edx_sidebar_order")
+  edxSidebarStatus   Int                        @default(1) @map("edx_sidebar_status")
+  edxSidebarEnabled  Int                        @default(1) @map("edx_sidebar_enabled")
+  roles              EdxRelationRolesSidebars[]
+  parent             EdxSidebar?                @relation("SidebarToSidebar", fields: [edxSidebarParentId], references: [edxSidebarId])
+  children           EdxSidebar[]               @relation("SidebarToSidebar")
+
+  @@map("edx_sidebars")
+}
+
+model EdxRelationRolesSidebars {
+  edxRoleId    String     @map("edx_role_id") @db.Uuid
+  edxSidebarId String     @map("edx_sidebar_id") @db.Uuid
+  edxStatus    Int?       @default(1) @map("edx_rs_status")
+  role         EdxRole    @relation(fields: [edxRoleId], references: [edxRoleId], onDelete: Cascade)
+  sidebar      EdxSidebar @relation(fields: [edxSidebarId], references: [edxSidebarId], onDelete: Cascade)
+
+  @@id([edxRoleId, edxSidebarId])
+  @@map("edx_relation_roles_sidebars")
+}
+
+model EdxModule {
+  edxModId          String                  @id @default(dbgenerated("gen_random_uuid()")) @map("edx_mod_id") @db.Uuid
+  edxModName        String                  @unique @map("edx_mod_name") @db.VarChar(20)
+  edxModKey         String?                 @map("edx_mod_key") @db.VarChar(30)
+  edxModDescription String?                 @map("edx_mod_description") @db.VarChar(50)
+  edxModCreatedAt   DateTime?               @default(now()) @map("edx_mod_created_at") @db.Timestamp(6)
+  edxModStatus      Int?                    @default(1) @map("edx_mod_status")
+  edxModUpdatedAt   DateTime?               @default(now()) @map("edx_mod_updated_at") @db.Timestamp(6)
+  roles             EdxRelationRoleModule[]
+
+  @@map("edx_modules")
+}
+
+model EdxPermission {
+  edxPermId              String                        @id @default(dbgenerated("gen_random_uuid()")) @map("edx_perm_id") @db.Uuid
+  edxPermName            String                        @unique @map("edx_perm_name") @db.VarChar(20)
+  edxPermKey             String?                       @map("edx_perm_key") @db.VarChar(20)
+  edxPermDescription     String?                       @map("edx_perm_description") @db.VarChar(50)
+  edxPermCreatedAt       DateTime?                     @default(now()) @map("edx_perm_created_at") @db.Timestamp(6)
+  edxPermStatus          Int?                          @default(1) @map("edx_perm_status")
+  edxPermUpdatedAt       DateTime?                     @default(now()) @map("edx_perm_updated_at") @db.Timestamp(6)
+  userSpecialPermissions EdxRelationPermissionsUsers[]
+  roles                  EdxRelationRolePermission[]
+
+  @@map("edx_permissions")
+}
+
+model EdxRelationRoleModule {
+  edxRoleId String    @map("edx_role_id") @db.Uuid
+  edxModId  String    @map("edx_mod_id") @db.Uuid
+  edxStatus BigInt    @default(1) @map("edx_rmp_status")
+  module    EdxModule @relation(fields: [edxModId], references: [edxModId], onDelete: Cascade)
+  role      EdxRole   @relation(fields: [edxRoleId], references: [edxRoleId], onDelete: Cascade)
+
+  @@id([edxRoleId, edxModId])
+  @@map("edx_relation_roles_modules")
+}
+
+model EdxRelationRolePermission {
+  edxRoleId  String        @map("edx_role_id") @db.Uuid
+  edxPermId  String        @map("edx_perm_id") @db.Uuid
+  edxStatus  BigInt        @default(1) @map("edx_rmp_status")
+  permission EdxPermission @relation(fields: [edxPermId], references: [edxPermId], onDelete: Cascade)
+  role       EdxRole       @relation(fields: [edxRoleId], references: [edxRoleId], onDelete: Cascade)
+
+  @@id([edxRoleId, edxPermId])
+  @@map("edx_relation_roles_permissions")
+}
+
+model EdxRelationPermissionsUsers {
+  edxPermId  String        @map("edx_perm_id") @db.Uuid
+  edxUserId  String        @map("edx_user_id") @db.Uuid
+  edxStatus  Int           @default(1) @map("edx_rpu_status")
+  permission EdxPermission @relation(fields: [edxPermId], references: [edxPermId], onDelete: Cascade, map: "edx_permissions_users_edx_perm_id_fkey")
+  user       EdxUser       @relation(fields: [edxUserId], references: [edxUserId], onDelete: Cascade)
+
+  @@id([edxPermId, edxUserId], map: "edx_permissions_users_pkey")
+  @@map("edx_relation_permissions_users")
+}
+
+model EdxSupportTicket {
+  edxTicketId        String              @id @default(dbgenerated("gen_random_uuid()")) @map("edx_ticket_id") @db.Uuid
+  edxUserId          String              @map("edx_user_id") @db.Uuid
+  edxTicketTitle     String?             @map("edx_ticket_title") @db.VarChar(255)
+  edxTicketStatus    Int                 @default(1) @map("edx_ticket_status")
+  edxTicketCreatedAt DateTime            @default(now()) @map("edx_ticket_created_at") @db.Timestamp(6)
+  edxTicketUpdatedAt DateTime            @default(now()) @map("edx_ticket_updated_at") @db.Timestamp(6)
+  messages           EdxSupportMessage[]
+  user               EdxUser             @relation(fields: [edxUserId], references: [edxUserId], onDelete: Cascade)
+
+  @@map("edx_support_tickets")
+}
+
+model EdxSupportMessage {
+  edxMsgId        String           @id @default(dbgenerated("gen_random_uuid()")) @map("edx_message_id") @db.Uuid
+  edxTicketId     String           @map("edx_ticket_id") @db.Uuid
+  edxUserId       String           @map("edx_user_id") @db.Uuid
+  edxMsgContent   String           @map("edx_message_content")
+  edxIsSupport    Boolean          @default(false) @map("edx_is_support")
+  edxMsgCreatedAt DateTime         @default(now()) @map("edx_message_created_at") @db.Timestamp(6)
+  ticket          EdxSupportTicket @relation(fields: [edxTicketId], references: [edxTicketId], onDelete: Cascade)
+  user            EdxUser          @relation(fields: [edxUserId], references: [edxUserId], onDelete: Cascade)
+
+  @@map("edx_support_messages")
+}
+
+model EdxSetting {
+  edxSettingId        String      @id @default(dbgenerated("gen_random_uuid()")) @map("edx_setting_id") @db.Uuid
+  edxSettingKey       String      @map("edx_setting_key") @db.VarChar(100)
+  edxSettingValue     String      @map("edx_setting_value")
+  edxSettingContext   String      @map("edx_setting_context") @db.VarChar(50)
+  edxSettingStatus    Int         @default(1) @map("edx_setting_status")
+  edxSettingCreatedAt DateTime?   @default(now()) @map("edx_setting_created_at") @db.Timestamp(6)
+  edxSettingUpdatedAt DateTime?   @default(now()) @map("edx_setting_updated_at") @db.Timestamp(6)
+
+  @@map("edx_settings")
+}
+
+model EdxTicket {
+  ticId             String      @id @default(dbgenerated("gen_random_uuid()")) @map("tic_id") @db.Uuid
+  conId             String      @map("con_id") @db.Uuid
+  uniId             String?     @map("uni_id") @db.Uuid
+  ticReportedBy     String      @map("tic_reported_by") @db.Uuid
+  ticSubject        String      @map("tic_subject") @db.VarChar(200)
+  ticPriority       EdxPriority @default(MEDIUM) @map("tic_priority")
+  ticStatus         Int         @default(1) @map("tic_status")
+  ticAssignedVendor String?     @map("tic_assigned_vendor") @db.Uuid
+  ticSlaDeadline    DateTime?   @map("tic_sla_deadline") @db.Timestamptz(6)
+  ticDeletedAt      DateTime?   @map("tic_deleted_at") @db.Timestamptz(6)
+  ticCreatedAt      DateTime?   @default(now()) @map("tic_created_at") @db.Timestamptz(6)
+
+  @@map("edx_tickets")
+}
+
+model EdxNotification {
+  userId       String      @map("user_id") @db.Uuid
+  ntfTitle     String      @map("ntf_title") @db.VarChar(200)
+  ntfBody      String      @map("ntf_body")
+  ntfType      String?     @map("ntf_type") @db.VarChar(50)
+  ntfChannel   EdxChannel? @default(IN_APP) @map("ntf_channel")
+  ntfStatus    Int?        @default(1) @map("ntf_status")
+  ntfIsRead    Boolean?    @default(false) @map("ntf_is_read")
+  ntfMetadata  Json?       @map("ntf_metadata")
+  ntfCreatedAt DateTime?   @default(now()) @map("ntf_created_at") @db.Timestamptz(6)
+  ntfId        String      @id @default(dbgenerated("gen_random_uuid()")) @map("edx_ntf_id") @db.Uuid
+  user         EdxUser     @relation(fields: [userId], references: [edxUserId])
+
+  @@map("edx_notifications")
+}
+
+model EdxSystemError {
+  errId         String    @id @default(dbgenerated("gen_random_uuid()")) @map("err_id") @db.Uuid
+  errLevel      String?   @default("ERROR") @map("err_level") @db.VarChar(20)
+  errModule     String    @map("err_module") @db.VarChar(50)
+  errMessage    String    @map("err_message")
+  errStackTrace String?   @map("err_stack_trace")
+  errReqContext Json?     @map("err_req_context")
+  errCreatedAt  DateTime? @default(now()) @map("err_created_at") @db.Timestamptz(6)
+
+  @@map("edx_system_errors")
+}
+
+model EdxInterfaceConfig {
+  edxIcId               String    @id @default(dbgenerated("gen_random_uuid()")) @map("edx_ic_id") @db.Uuid
+  edxIcName             String    @map("edx_ic_name") @db.VarChar(100)
+  edxIcPrimaryColor     String?   @default("#007bff") @map("edx_ic_primary_color") @db.VarChar(20)
+  edxIcSecondaryColor   String?   @default("#6c757d") @map("edx_ic_secondary_color") @db.VarChar(20)
+  edxIcBackgroundColor  String?   @default("#ffffff") @map("edx_ic_background_color") @db.VarChar(20)
+  edxIcH1Color          String?   @default("#000000") @map("edx_ic_h1_color") @db.VarChar(20)
+  edxIcH2Color          String?   @default("#000000") @map("edx_ic_h2_color") @db.VarChar(20)
+  edxIcH3Color          String?   @default("#000000") @map("edx_ic_h3_color") @db.VarChar(20)
+  edxIcH4Color          String?   @default("#000000") @map("edx_ic_h4_color") @db.VarChar(20)
+  edxIcH5Color          String?   @default("#000000") @map("edx_ic_h5_color") @db.VarChar(20)
+  edxIcPColor           String?   @default("#000000") @map("edx_ic_p_color") @db.VarChar(20)
+  edxIcAColor           String?   @default("#007bff") @map("edx_ic_a_color") @db.VarChar(20)
+  edxIcCardBgColor      String?   @default("#ffffff") @map("edx_ic_card_bg_color") @db.VarChar(20)
+  edxIcCardBorderColor  String?   @default("#dee2e6") @map("edx_ic_card_border_color") @db.VarChar(20)
+  edxIcCardShadow       String?   @default("0 4px 6px rgba(0,0,0,0.1)") @map("edx_ic_card_shadow")
+  edxIcBtnPrimaryBg     String?   @default("#007bff") @map("edx_ic_btn_primary_bg") @db.VarChar(20)
+  edxIcBtnPrimaryText   String?   @default("#ffffff") @map("edx_ic_btn_primary_text") @db.VarChar(20)
+  edxIcBtnSecondaryBg   String?   @default("#6c757d") @map("edx_ic_btn_secondary_bg") @db.VarChar(20)
+  edxIcBtnSecondaryText String?   @default("#ffffff") @map("edx_ic_btn_secondary_text") @db.VarChar(20)
+  edxIcIsDefault        Boolean   @default(false) @map("edx_ic_is_default")
+  edxIcStatus           Int?      @default(1) @map("edx_ic_status")
+  edxIcCreatedAt        DateTime? @default(now()) @map("edx_ic_created_at") @db.Timestamp(6)
+  edxIcUpdatedAt        DateTime? @default(now()) @map("edx_ic_updated_at") @db.Timestamp(6)
+
+  @@map("edx_interface_configs")
+}
+
+model EdxApp {
+  edxAppId        String    @id @default(dbgenerated("gen_random_uuid()")) @map("edx_app_id") @db.Uuid
+  edxAppName      String    @map("edx_app_name") @db.VarChar(100)
+  edxAppSlug      String    @map("edx_app_slug") @db.VarChar(100)
+  edxAppUrl       String    @map("edx_app_url")
+  edxAppSecretKey String    @map("edx_app_secret_key")
+  edxAppStatus    Int?      @default(1) @map("edx_app_status")
+  edxAppCreatedAt DateTime? @default(now()) @map("edx_app_created_at") @db.Timestamp(6)
+  edxAppUpdatedAt DateTime? @default(now()) @map("edx_app_updated_at") @db.Timestamp(6)
+
+  @@map("edx_apps")
+}
+
+model EdxExternalProviderConfig {
+  edxExtConfigId String  @id @default(dbgenerated("gen_random_uuid()")) @map("ext_config_id") @db.Uuid
+  edxExtAppId    String? @map("id") @db.Uuid
+  edxExtType     String  @map("ext_provider_type") @db.VarChar(50)
+  edxExtDomain   String? @map("ext_domain") @db.VarChar(150)
+  edxExtMetadata Json?   @map("ext_metadata")
+  edxExtStatus   Int?    @default(1) @map("edx_ext_status")
+
+  @@map("edx_external_provider_configs")
+}
+
+model EdxActivityLog {
+  actId            String   @id @default(dbgenerated("gen_random_uuid()")) @map("act_id") @db.Uuid
+  usrId            String?  @map("usr_id") @db.Uuid
+  actModule        String   @map("act_module") @db.VarChar(50)
+  actMethod        String   @map("act_method") @db.VarChar(10)
+  actPayloadBefore Json?    @map("act_payload_before")
+  actPayloadAfter  Json?    @map("act_payload_after")
+  actCreatedAt     DateTime @default(now()) @map("act_created_at") @db.Timestamptz(6)
+
+  @@map("edx_activity_logs")
+}
+
+model EdxVerificationCode {
+  edxVerId        String   @id @default(dbgenerated("gen_random_uuid()")) @map("edx_ver_id") @db.Uuid
+  edxVerCode      String   @map("edx_ver_code") @db.VarChar(10)
+  edxVerRecipient String   @map("edx_ver_recipient") @db.VarChar(200)
+  edxVerType      String   @map("edx_ver_type") @db.VarChar(20)
+  edxVerStatus    Int      @default(1) @map("edx_ver_status")
+  edxVerExpiresAt DateTime @map("edx_ver_expires_at") @db.Timestamp(6)
+  edxVerCreatedAt DateTime @default(now()) @map("edx_ver_created_at") @db.Timestamp(6)
+
+  @@index([edxVerRecipient, edxVerCode])
+  @@map("edx_verification_codes")
+}
+
+model EdxAppointmentCategory {
+  edxCatId        String       @id @default(dbgenerated("gen_random_uuid()")) @map("edx_cat_id") @db.Uuid
+  edxCatName      String       @map("edx_cat_name") @db.VarChar(100)
+  edxCatDuration  Int?         @map("edx_cat_duration")
+  edxCatIcon      String?      @map("edx_cat_icon") @db.VarChar(50)
+  edxCatStatus    Int?         @default(1) @map("edx_cat_status")
+  edxCatCreatedAt DateTime?    @default(now()) @map("edx_cat_created_at") @db.Timestamp(6)
+
+  @@map("edx_appointment_categories")
+}
+
+model EdxContactCategory {
+  edxCatId        String       @id @default(dbgenerated("gen_random_uuid()")) @map("edx_cat_id") @db.Uuid
+  edxCatName      String       @map("edx_cat_name") @db.VarChar(100)
+  edxCatStatus    Int?         @default(1) @map("edx_cat_status")
+  edxCatCreatedAt DateTime?    @default(now()) @map("edx_cat_created_at") @db.Timestamp(6)
+  contacts        EdxContact[]
+
+  @@map("edx_contact_categories")
+}
+
+model EdxContact {
+  edxConId               String              @id @default(dbgenerated("gen_random_uuid()")) @map("edx_con_id") @db.Uuid
+  edxCatId               String?             @map("edx_cat_id") @db.Uuid
+  edxConName             String              @map("edx_con_name") @db.VarChar(200)
+  edxConEmail            String?             @map("edx_con_email") @db.VarChar(150)
+  edxConPhone            String?             @map("edx_con_phone") @db.VarChar(20)
+  edxConStatus           Int?                @default(1) @map("edx_con_status")
+  edxConCreatedAt        DateTime?           @default(now()) @map("edx_con_created_at") @db.Timestamp(6)
+  edxConCity             String?             @map("edx_con_city") @db.VarChar(100)
+  edxConCompany          String?             @map("edx_con_company") @db.VarChar(200)
+  edxConCompanyType      String?             @map("edx_con_company_type") @db.VarChar(100)
+  edxConDni              String?             @map("edx_con_dni") @db.VarChar(20)
+  edxConInterests        String?             @map("edx_con_interests")
+  edxConLastName         String?             @map("edx_con_lastname") @db.VarChar(200)
+  edxConPermit           String?             @map("edx_con_permit") @db.VarChar(10)
+  edxConPreferredChannel String?             @map("edx_con_preferred_channel") @db.VarChar(50)
+  edxConSource           String?             @map("edx_con_source") @db.VarChar(100)
+  category               EdxContactCategory? @relation(fields: [edxCatId], references: [edxCatId])
+
+  @@map("edx_contacts")
+}
+
+model EdxCampaign {
+  edxCamId          String           @id @default(dbgenerated("gen_random_uuid()")) @map("edx_cam_id") @db.Uuid
+  edxCamTitle       String           @map("edx_cam_title") @db.VarChar(200)
+  edxCamMessage     String           @map("edx_cam_message")
+  edxCamType        String           @map("edx_cam_type") @db.VarChar(20)
+  edxCamStatus      Int?             @default(1) @map("edx_cam_status")
+  edxCamTargetRoles Json?            @map("edx_cam_target_roles")
+  edxCamTargetCats  Json?            @map("edx_cam_target_cats")
+  edxCamCreatedAt   DateTime?        @default(now()) @map("edx_cam_created_at") @db.Timestamp(6)
+  edxCamScheduledAt DateTime?        @map("edx_cam_scheduled_at") @db.Timestamp(6)
+  edxCamFilm        String?          @map("edx_cam_film")
+  edxCamIframe      String?          @map("edx_cam_iframe")
+  edxCamImage       String?          @map("edx_cam_image")
+  logs              EdxCampaignLog[]
+
+  @@map("edx_campaigns")
+}
+
+model EdxCampaignLog {
+  edxLogId        String      @id @default(dbgenerated("gen_random_uuid()")) @map("edx_log_id") @db.Uuid
+  edxCamId        String      @map("edx_cam_id") @db.Uuid
+  edxLogRecipient String      @map("edx_log_recipient") @db.VarChar(200)
+  edxLogError     String?     @map("edx_log_error")
+  edxLogCreatedAt DateTime?   @default(now()) @map("edx_log_created_at") @db.Timestamp(6)
+  edxLogEmail     String?     @map("edx_log_email") @db.VarChar(200)
+  edxLogName      String?     @map("edx_log_name") @db.VarChar(200)
+  edxLogType      String?     @map("edx_log_type") @db.VarChar(20)
+  edxLogStatus    Int         @default(0) @map("edx_log_status")
+  campaign        EdxCampaign @relation(fields: [edxCamId], references: [edxCamId], onDelete: Cascade)
+
+  @@map("edx_campaign_logs")
+}
+
+
+
+model EdxSercopProcess {
+  edxProcessId       String    @id @default(dbgenerated("gen_random_uuid()")) @map("edx_process_id") @db.Uuid
+  edxProcessCode     String    @unique @map("edx_process_code") @db.VarChar(50)
+  edxProcessType     String?   @map("edx_process_type") @db.VarChar(100)
+  edxEntity          String?   @map("edx_entity") @db.VarChar(255)
+  edxObject          String?   @map("edx_object")
+  edxBudget          Float?    @map("edx_budget")
+  edxStatus          String?   @map("edx_status") @db.VarChar(50)
+  edxPublicationDate DateTime? @map("edx_publication_date") @db.Timestamp(6)
+  edxDeadlineDate    DateTime? @map("edx_end_date") @db.Timestamp(6)
+  edxUrl             String?   @map("edx_url")
+  edxRawData         Json?     @map("edx_raw_data")
+  edxCreatedAt       DateTime? @default(now()) @map("edx_created_at") @db.Timestamp(6)
+  edxUpdatedAt       DateTime? @default(now()) @map("edx_updated_at") @db.Timestamp(6)
+
+  @@map("edx_sercop_processes")
+}
+
+model EdxScrapeLog {
+  edxLogId          String    @id @default(dbgenerated("gen_random_uuid()")) @map("edx_log_id") @db.Uuid
+  edxStartedAt      DateTime  @default(now()) @map("edx_started_at") @db.Timestamp(6)
+  edxFinishedAt     DateTime? @map("edx_finished_at") @db.Timestamp(6)
+  edxStatus         String    @map("edx_status") @db.VarChar(20)
+  edxProcessesFound Int       @default(0) @map("edx_processes_found")
+  edxErrorMessage   String?   @map("edx_error_message")
+
+  @@map("edx_scrape_logs")
+}
+
+model EdxSercopKeyword {
+  edxKeywordId String   @id @default(dbgenerated("gen_random_uuid()")) @map("edx_keyword_id") @db.Uuid
+  edxUserId    String   @map("edx_user_id") @db.Uuid
+  edxKeyword   String   @map("edx_keyword") @db.VarChar(100)
+  edxStatus    Int?     @default(1) @map("edx_keyword_status")
+  edxCreatedAt DateTime @default(now()) @map("edx_keyword_created_at") @db.Timestamp(6)
+  user         EdxUser  @relation(fields: [edxUserId], references: [edxUserId], onDelete: Cascade)
+
+  @@map("edx_sercop_keywords")
+}
+
+model EdxSubscription {
+  edxSubId     String    @id @default(dbgenerated("gen_random_uuid()")) @map("edx_sub_id") @db.Uuid
+  edxUserId    String    @unique @map("edx_user_id") @db.Uuid
+  edxPlan      EdxPlan   @default(BASIC) @map("edx_plan")
+  edxStatus    Int       @default(1) @map("edx_sub_status")
+  edxExpiresAt DateTime? @map("edx_expires_at") @db.Timestamp(6)
+  edxCreatedAt DateTime  @default(now()) @map("edx_sub_created_at") @db.Timestamp(6)
+  edxUpdatedAt DateTime  @default(now()) @map("edx_sub_updated_at") @db.Timestamp(6)
+  user         EdxUser   @relation(fields: [edxUserId], references: [edxUserId], onDelete: Cascade)
+
+  @@map("edx_subscriptions")
+}
+
+model EdxPayment {
+  edxPaymentId     String    @id @default(dbgenerated("gen_random_uuid()")) @map("edx_payment_id") @db.Uuid
+  edxUserId        String    @map("edx_user_id") @db.Uuid
+  edxAmount        Float     @map("edx_amount")
+  edxPaymentMethod String    @map("edx_payment_method") @db.VarChar(50)
+  edxTransactionId String?   @map("edx_transaction_id") @db.VarChar(100)
+  edxStatus        String    @map("edx_status") @db.VarChar(30)
+  edxCreatedAt     DateTime  @default(now()) @map("edx_created_at") @db.Timestamp(6)
+  user             EdxUser   @relation(fields: [edxUserId], references: [edxUserId], onDelete: Cascade)
+
+  @@map("edx_payments")
+}
+
+
+
+model EdxCompanyCategory {
+  edxCategoryId          String                  @id @default(dbgenerated("gen_random_uuid()")) @map("edx_category_id") @db.Uuid
+  edxCategoryName        String                  @unique @map("edx_category_name") @db.VarChar(100)
+  edxCategoryDescription String?                 @map("edx_category_description")
+  edxCategoryStatus      Int?                    @default(1) @map("edx_category_status")
+  edxCategoryCreatedAt   DateTime?               @default(now()) @map("edx_category_created_at") @db.Timestamp(6)
+  edxCategoryUpdatedAt   DateTime?               @default(now()) @map("edx_category_updated_at") @db.Timestamp(6)
+  subCategories          EdxCompanySubCategory[]
+
+  @@map("edx_company_categories")
+}
+
+model EdxCompanySubCategory {
+  edxSubCategoryId          String             @id @default(dbgenerated("gen_random_uuid()")) @map("edx_subcategory_id") @db.Uuid
+  edxSubCategoryName        String             @map("edx_subcategory_name") @db.VarChar(100)
+  edxSubCategoryDescription String?            @map("edx_subcategory_description")
+  edxSubCategoryStatus      Int?               @default(1) @map("edx_subcategory_status")
+  edxSubCategoryCreatedAt   DateTime?          @default(now()) @map("edx_subcategory_created_at") @db.Timestamp(6)
+  edxSubCategoryUpdatedAt   DateTime?          @default(now()) @map("edx_subcategory_updated_at") @db.Timestamp(6)
+  edxCategoryId             String             @map("edx_category_id") @db.Uuid
+  category                  EdxCompanyCategory @relation(fields: [edxCategoryId], references: [edxCategoryId], onDelete: Cascade)
+
+  @@unique([edxCategoryId, edxSubCategoryName])
+  @@map("edx_company_subcategories")
+}
+
+enum EdxPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum EdxChannel {
+  PUSH
+  EMAIL
+  SMS
+  IN_APP
+}
+
+enum EdxPlan {
+  BASIC
+  PRO
+  PREMIUM
+}
+
+enum EdxWorkerType {
+  PROFESIONAL
+  ARTESANO
+  SERVICIOS_VARIOS
+}
+
+model EdxWorker {
+  edxWorkerId       String        @id @default(dbgenerated("gen_random_uuid()")) @map("edx_worker_id") @db.Uuid
+  edxUserId         String        @unique @map("edx_user_id") @db.Uuid
+  edxWorkerType     EdxWorkerType @map("edx_worker_type")
+  edxSpecialty      String?       @map("edx_specialty") @db.VarChar(100)
+  edxExperienceYears Int?         @map("edx_experience_years")
+  edxGremioNumber   String?       @map("edx_gremio_number") @db.VarChar(50)
+  edxStatus         Int           @default(1) @map("edx_worker_status")
+  edxCreatedAt      DateTime      @default(now()) @map("edx_worker_created_at") @db.Timestamp(6)
+  edxUpdatedAt      DateTime      @default(now()) @map("edx_worker_updated_at") @db.Timestamp(6)
+  user              EdxUser       @relation(fields: [edxUserId], references: [edxUserId], onDelete: Cascade)
+
+  @@map("edx_workers")
+}
+
+model EdxCatalogService {
+  edxServiceId   String         @id @default(dbgenerated("gen_random_uuid()")) @map("edx_service_id") @db.Uuid
+  edxServiceName String         @unique @map("edx_service_name") @db.VarChar(150)
+  edxWorkerType  EdxWorkerType  @map("edx_worker_type")
+  edxCreatedAt   DateTime       @default(now()) @map("edx_created_at") @db.Timestamp(6)
+  edxUpdatedAt   DateTime       @default(now()) @map("edx_updated_at") @db.Timestamp(6)
+  professions    EdxCatalogProfession[]
+
+  @@map("edx_catalog_services")
+}
+
+model EdxCatalogProfession {
+  edxProfessionId   String         @id @default(dbgenerated("gen_random_uuid()")) @map("edx_profession_id") @db.Uuid
+  edxProfessionName String         @map("edx_profession_name") @db.VarChar(150)
+  edxProfessionIcon String?        @map("edx_profession_icon") @db.VarChar(100)
+  edxKeywords       String?        @map("edx_keywords") @db.Text
+  edxServiceId      String         @map("edx_service_id") @db.Uuid
+  edxAreaId         String?        @map("edx_area_id") @db.Uuid
+  edxCreatedAt      DateTime       @default(now()) @map("edx_created_at") @db.Timestamp(6)
+  edxUpdatedAt      DateTime       @default(now()) @map("edx_updated_at") @db.Timestamp(6)
+  
+  service           EdxCatalogService @relation(fields: [edxServiceId], references: [edxServiceId], onDelete: Cascade)
+  area              EdxCatalogArea?   @relation(fields: [edxAreaId], references: [edxAreaId], onDelete: SetNull)
+  activities        EdxCatalogProfessionActivity[]
+
+  @@unique([edxServiceId, edxProfessionName])
+  @@map("edx_catalog_professions")
+}
+
+model EdxCatalogProfessionActivity {
+  edxActivityId     String         @id @default(dbgenerated("gen_random_uuid()")) @map("edx_activity_id") @db.Uuid
+  edxActivityName   String         @map("edx_activity_name") @db.VarChar(200)
+  edxProfessionId   String         @map("edx_profession_id") @db.Uuid
+  edxCreatedAt      DateTime       @default(now()) @map("edx_created_at") @db.Timestamp(6)
+  edxUpdatedAt      DateTime       @default(now()) @map("edx_updated_at") @db.Timestamp(6)
+
+  profession        EdxCatalogProfession @relation(fields: [edxProfessionId], references: [edxProfessionId], onDelete: Cascade)
+
+  @@unique([edxProfessionId, edxActivityName])
+  @@map("edx_catalog_professions_activities")
+}
+
+model EdxCatalogArea {
+  edxAreaId     String                 @id @default(dbgenerated("gen_random_uuid()")) @map("edx_area_id") @db.Uuid
+  edxAreaName   String                 @unique @map("edx_area_name") @db.VarChar(150)
+  edxCreatedAt  DateTime               @default(now()) @map("edx_created_at") @db.Timestamp(6)
+  edxUpdatedAt  DateTime               @default(now()) @map("edx_updated_at") @db.Timestamp(6)
+  professions   EdxCatalogProfession[]
+
+  @@map("edx_catalog_areas")
+}
+
+// =========================================================================
+// SITIO WEB CORPORATIVO (adavam-web-main) - contenido administrado desde
+// adavam-frontend-administrator-main, expuesto vía @Public() para lectura.
+// =========================================================================
+
+model EdxHeroSlide {
+  edxHeroId          String    @id @default(dbgenerated("gen_random_uuid()")) @map("edx_hero_id") @db.Uuid
+  edxHeroTitle        String    @map("edx_hero_title") @db.VarChar(200)
+  edxHeroSubtitle      String?   @map("edx_hero_subtitle") @db.VarChar(300)
+  edxHeroDescription   String?   @map("edx_hero_description")
+  edxHeroImage         String?   @map("edx_hero_image")
+  edxHeroCtaText       String?   @map("edx_hero_cta_text") @db.VarChar(100)
+  edxHeroCtaLink       String?   @map("edx_hero_cta_link") @db.VarChar(300)
+  edxHeroOrder         Int       @default(0) @map("edx_hero_order")
+  edxHeroStatus        Int       @default(1) @map("edx_hero_status")
+  edxHeroCreatedAt     DateTime  @default(now()) @map("edx_hero_created_at") @db.Timestamp(6)
+  edxHeroUpdatedAt     DateTime  @default(now()) @map("edx_hero_updated_at") @db.Timestamp(6)
+
+  @@map("edx_hero_slides")
+}
+
+model EdxLandingService {
+  edxServId           String        @id @default(dbgenerated("gen_random_uuid()")) @map("edx_serv_id") @db.Uuid
+  edxServTitle         String        @map("edx_serv_title") @db.VarChar(200)
+  edxServSlug          String        @unique @map("edx_serv_slug") @db.VarChar(220)
+  edxServDescription   String?       @map("edx_serv_description")
+  edxServIcon          String?       @map("edx_serv_icon") @db.VarChar(100)
+  edxServImage         String?       @map("edx_serv_image")
+  edxServPrice         String?       @map("edx_serv_price") @db.VarChar(50)
+  edxServFeatures      Json?         @map("edx_serv_features")
+  edxServOrder         Int           @default(0) @map("edx_serv_order")
+  edxServStatus        Int           @default(1) @map("edx_serv_status")
+  edxServCreatedAt     DateTime      @default(now()) @map("edx_serv_created_at") @db.Timestamp(6)
+  edxServUpdatedAt     DateTime      @default(now()) @map("edx_serv_updated_at") @db.Timestamp(6)
+  appointments         EdxAppointment[]
+
+  @@map("edx_landing_services")
+}
+
+model EdxTechnology {
+  edxTechId           String    @id @default(dbgenerated("gen_random_uuid()")) @map("edx_tech_id") @db.Uuid
+  edxTechName          String    @map("edx_tech_name") @db.VarChar(100)
+  edxTechCategory      String?   @map("edx_tech_category") @db.VarChar(100)
+  edxTechIcon          String?   @map("edx_tech_icon")
+  edxTechColor         String?   @map("edx_tech_color") @db.VarChar(50)
+  edxTechOrder         Int       @default(0) @map("edx_tech_order")
+  edxTechStatus        Int       @default(1) @map("edx_tech_status")
+  edxTechCreatedAt     DateTime  @default(now()) @map("edx_tech_created_at") @db.Timestamp(6)
+  edxTechUpdatedAt     DateTime  @default(now()) @map("edx_tech_updated_at") @db.Timestamp(6)
+
+  @@map("edx_technologies")
+}
+
+model EdxProject {
+  edxProjId            String    @id @default(dbgenerated("gen_random_uuid()")) @map("edx_proj_id") @db.Uuid
+  edxProjTitle          String    @map("edx_proj_title") @db.VarChar(200)
+  edxProjSlug           String    @unique @map("edx_proj_slug") @db.VarChar(220)
+  edxProjCategory       String?   @map("edx_proj_category") @db.VarChar(100)
+  edxProjClient         String?   @map("edx_proj_client") @db.VarChar(150)
+  edxProjShortDescription String? @map("edx_proj_short_description")
+  edxProjDescription    String?   @map("edx_proj_description")
+  edxProjImage          String?   @map("edx_proj_image")
+  edxProjGallery        Json?     @map("edx_proj_gallery")
+  edxProjTechStack      Json?     @map("edx_proj_tech_stack")
+  edxProjResults        Json?     @map("edx_proj_results")
+  edxProjUrl            String?   @map("edx_proj_url") @db.VarChar(300)
+  edxProjFeatured       Boolean   @default(false) @map("edx_proj_featured")
+  edxProjOrder          Int       @default(0) @map("edx_proj_order")
+  edxProjStatus         Int       @default(1) @map("edx_proj_status")
+  edxProjCreatedAt      DateTime  @default(now()) @map("edx_proj_created_at") @db.Timestamp(6)
+  edxProjUpdatedAt      DateTime  @default(now()) @map("edx_proj_updated_at") @db.Timestamp(6)
+
+  @@map("edx_projects")
+}
+
+model EdxSchedulingSettings {
+  edxSchedId               String    @id @default(dbgenerated("gen_random_uuid()")) @map("edx_sched_id") @db.Uuid
+  edxSchedWeekDays          Json      @map("edx_sched_week_days")
+  edxSchedTimeSlots         Json      @map("edx_sched_time_slots")
+  edxSchedDurationMinutes   Int       @default(60) @map("edx_sched_duration_minutes")
+  edxSchedWhatsappNumber    String?   @map("edx_sched_whatsapp_number") @db.VarChar(30)
+  edxSchedStatus            Int       @default(1) @map("edx_sched_status")
+  edxSchedCreatedAt         DateTime  @default(now()) @map("edx_sched_created_at") @db.Timestamp(6)
+  edxSchedUpdatedAt         DateTime  @default(now()) @map("edx_sched_updated_at") @db.Timestamp(6)
+
+  @@map("edx_scheduling_settings")
+}
+
+model EdxAppointment {
+  edxAppId          String              @id @default(dbgenerated("gen_random_uuid()")) @map("edx_app_id") @db.Uuid
+  edxAppName         String              @map("edx_app_name") @db.VarChar(150)
+  edxAppEmail        String?             @map("edx_app_email") @db.VarChar(150)
+  edxAppPhone        String?             @map("edx_app_phone") @db.VarChar(30)
+  edxAppServiceId    String?             @map("edx_app_service_id") @db.Uuid
+  edxAppDate         DateTime            @map("edx_app_date") @db.Date
+  edxAppTime         String              @map("edx_app_time") @db.VarChar(10)
+  edxAppMessage      String?             @map("edx_app_message")
+  edxAppStatus       Int                 @default(1) @map("edx_app_status")
+  edxAppCreatedAt    DateTime            @default(now()) @map("edx_app_created_at") @db.Timestamp(6)
+  edxAppUpdatedAt    DateTime            @default(now()) @map("edx_app_updated_at") @db.Timestamp(6)
+  service            EdxLandingService?  @relation(fields: [edxAppServiceId], references: [edxServId], onDelete: SetNull)
+
+  @@map("edx_appointments")
+}
+
+model EdxBlogCategory {
+  edxBlogCatId         String        @id @default(dbgenerated("gen_random_uuid()")) @map("edx_blog_cat_id") @db.Uuid
+  edxBlogCatName       String        @map("edx_blog_cat_name") @db.VarChar(100)
+  edxBlogCatSlug       String        @unique @map("edx_blog_cat_slug") @db.VarChar(120)
+  edxBlogCatStatus     Int?          @default(1) @map("edx_blog_cat_status")
+  edxBlogCatCreatedAt  DateTime?     @default(now()) @map("edx_blog_cat_created_at") @db.Timestamp(6)
+  posts                EdxBlogPost[]
+
+  @@map("edx_blog_categories")
+}
+
+model EdxBlogPost {
+  edxPostId          String            @id @default(dbgenerated("gen_random_uuid()")) @map("edx_post_id") @db.Uuid
+  edxBlogCatId       String?           @map("edx_blog_cat_id") @db.Uuid
+  edxPostTitle       String            @map("edx_post_title") @db.VarChar(255)
+  edxPostSlug        String            @unique @map("edx_post_slug") @db.VarChar(300)
+  edxPostContent     String            @map("edx_post_content")
+  edxPostSummary     String?           @map("edx_post_summary")
+  edxPostImage       String?           @map("edx_post_image")
+  edxPostStatus      Int?              @default(1) @map("edx_post_status")
+  edxPostViews       Int?              @default(0) @map("edx_post_views")
+  edxPostLikes       Int?              @default(0) @map("edx_post_likes")
+  edxPostLoves       Int?              @default(0) @map("edx_post_loves")
+  edxPostAuthorId    String?           @map("edx_post_author_id") @db.Uuid
+  edxPostCreatedAt   DateTime?         @default(now()) @map("edx_post_created_at") @db.Timestamp(6)
+  edxPostUpdatedAt   DateTime?         @default(now()) @map("edx_post_updated_at") @db.Timestamp(6)
+  category           EdxBlogCategory?  @relation(fields: [edxBlogCatId], references: [edxBlogCatId], onDelete: SetNull)
+  comments           EdxBlogComment[]
+
+  @@map("edx_blog_posts")
+}
+
+model EdxBlogComment {
+  edxComId          String     @id @default(dbgenerated("gen_random_uuid()")) @map("edx_com_id") @db.Uuid
+  edxPostId         String     @map("edx_post_id") @db.Uuid
+  edxComName        String     @map("edx_com_name") @db.VarChar(100)
+  edxComEmail       String?    @map("edx_com_email") @db.VarChar(150)
+  edxComContent     String     @map("edx_com_content")
+  edxComStatus      Int?       @default(0) @map("edx_com_status")
+  edxComCreatedAt   DateTime?  @default(now()) @map("edx_com_created_at") @db.Timestamp(6)
+  post              EdxBlogPost @relation(fields: [edxPostId], references: [edxPostId], onDelete: Cascade)
+
+  @@map("edx_blog_comments")
+}
+
+model EdxBusiness {
+  edxBusinessId          String    @id @default(dbgenerated("gen_random_uuid()")) @map("edx_business_id") @db.Uuid
+  edxBusinessName        String    @map("edx_business_name") @db.VarChar(200)
+  edxBusinessRuc         String    @unique @map("edx_business_ruc") @db.VarChar(20)
+  edxBusinessLogo        String?   @map("edx_business_logo")
+  edxBusinessStatus      Int?      @default(1) @map("edx_business_status")
+  edxBusinessAddress     String?   @map("edx_business_address")
+  edxBusinessPhone       String?   @map("edx_business_phone") @db.VarChar(50)
+  edxBusinessEmail       String?   @map("edx_business_email") @db.VarChar(150)
+  edxBusinessLogoDay     String?   @map("edx_business_logo_day")
+  edxBusinessLogoNight   String?   @map("edx_business_logo_night")
+  edxBusinessWebsite     String?   @map("edx_business_website")
+  edxBusinessSocialMedia Json?     @map("edx_business_social_media")
+  edxBusinessIconDay     String?   @map("edx_business_icon_day")
+  edxBusinessIconNight   String?   @map("edx_business_icon_night")
+  edxBusinessCreatedDate DateTime? @default(now()) @map("edx_business_created_date") @db.Timestamp(6)
+  edxBusinessUpdatedDate DateTime? @default(now()) @map("edx_business_updated_date") @db.Timestamp(6)
+
+  @@map("edx_business")
+}
+
